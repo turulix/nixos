@@ -1,0 +1,37 @@
+name: Validate NixOS Config
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+  workflow_dispatch:
+
+jobs:
+  check:
+    name: Check and Build Dry Run
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@main
+        with:
+          # Optional: Add extra trusted users or substituters here if needed
+          extra-conf: |
+            experimental-features = nix-command flakes
+
+      - name: Setup Magic Nix Cache
+        uses: DeterminateSystems/magic-nix-cache-action@main
+
+      - name: Flake Check
+        # Evaluates the flake to ensure there are no syntax errors or broken derivations
+        run: nix flake check --show-trace
+
+      - name: Dry-run build NixOS configuration
+        # Replace 'your-hostname' with the name of your system in nixosConfigurations
+        # The --dry-run flag ensures CI doesn't waste time actually building large packages,
+        # it just verifies that the evaluation succeeds and it *can* be built.
+        run: nix build .#nixosConfigurations.your-hostname.config.system.build.toplevel --dry-run
