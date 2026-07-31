@@ -2,7 +2,8 @@
   config,
   pkgs,
   ...
-}: {
+}: let
+in {
   programs.helix = {
     enable = true;
     defaultEditor = true;
@@ -29,20 +30,9 @@
           name = "nix";
           auto-format = true;
           formatter.command = "alejandra";
-          language-servers = ["nixd"];
+          # language-servers = ["nixd"];
         }
       ];
     };
-  };
-
-  programs.git = {
-    enable = true;
-    settings = {
-      user.name = "Tim";
-      user.email = "tigga01@online.de";
-    };
-    signing.format = "ssh";
-    signing.key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBK40krEtJ/FXbsVgY6YcFn4jpO0WXjCk2Q5vwJL2zsh";
-    signing.signByDefault = true;
   };
 }

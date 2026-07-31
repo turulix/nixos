@@ -1,17 +1,17 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-{
-  config,
-  pkgs,
-  ...
-}: {
+{config, ...}: {
   imports = [
-    # Include the results of the hardware scan.
+    ../../nixos/desktop.nix
+    ../../nixos/users.nix
+    ../../nixos/home-manager.nix
+    #    ../../users/default.nix
+    #    ../../modules/default.nix
+
+    # You should let those lines as is
     ./hardware-configuration.nix
-    ../../modules/desktop.nix
-    ../../users/default.nix
-    ../../modules/default.nix
+    ./variables.nix
   ];
 
   # Bootloader.
@@ -61,6 +61,8 @@
   };
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
+
+  home-manager.users."${config.var.username}" = import ./home.nix;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
