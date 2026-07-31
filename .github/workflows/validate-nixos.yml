@@ -34,4 +34,4 @@ jobs:
         # Replace 'your-hostname' with the name of your system in nixosConfigurations
         # The --dry-run flag ensures CI doesn't waste time actually building large packages,
         # it just verifies that the evaluation succeeds and it *can* be built.
-        run: nix build .#nixosConfigurations.your-hostname.config.system.build.toplevel --dry-run
+        run: nix build .#nixosConfigurations.IdeaPad-S340.config.system.build.toplevel --dry-run
