@@ -45,6 +45,7 @@
     };
 
     settings = {
+      theme = "onedarker";
       editor = {
         auto-format = true;
       };
