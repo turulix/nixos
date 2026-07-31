@@ -3,6 +3,9 @@
     ../../home/programs/helix
     ../../home/programs/git
     ../../home/programs/bitwarden-desktop
+    ../../home/programs/discord
+    ../../home/programs/steam
+
     ../../home/programs/shell/zsh.nix
 
     ./variables.nix
