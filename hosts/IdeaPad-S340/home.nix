@@ -1,4 +1,4 @@
-{config, ...}: {
+{ config, ... }: {
   imports = [
     ../../home/programs/helix
     ../../home/programs/git

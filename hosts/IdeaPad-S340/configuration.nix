@@ -1,15 +1,16 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-{config, ...}: {
+{ config, ... }: {
   imports = [
     ../../nixos/desktop.nix
     ../../nixos/users.nix
     ../../nixos/home-manager.nix
+    ../../nixos/nix.nix
 
     # System Program Configs
     ../../nixos/programs/steam
-    
+
     # You should let those lines as is
     ./hardware-configuration.nix
     ./variables.nix
@@ -61,7 +62,10 @@
     };
   };
 
-  nix.settings.experimental-features = ["nix-command" "flakes"];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   home-manager.users."${config.var.username}" = import ./home.nix;
 

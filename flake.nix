@@ -12,27 +12,29 @@
     };
   };
 
-  outputs = {
-    nixpkgs,
-    nixpkgs-stable,
-    ...
-  } @ inputs: let
-    system = "x86_64-linux";
-    pkgs = nixpkgs.legacyPackages.${system};
-    args = {
-      inherit
-        inputs
-        nixpkgs
-        system
-        pkgs
-        ;
-      pkgs-stable = nixpkgs-stable.legacyPackages.${system};
-    };
-    merge = nixpkgs.lib.foldl nixpkgs.lib.recursiveUpdate {};
-  in
+  outputs =
+    {
+      nixpkgs,
+      nixpkgs-stable,
+      ...
+    }@inputs:
+    let
+      system = "x86_64-linux";
+      pkgs = nixpkgs.legacyPackages.${system};
+      args = {
+        inherit
+          inputs
+          nixpkgs
+          system
+          pkgs
+          ;
+        pkgs-stable = nixpkgs-stable.legacyPackages.${system};
+      };
+      merge = nixpkgs.lib.foldl nixpkgs.lib.recursiveUpdate { };
+    in
     merge [
       {
-        formatter.${system} = pkgs.alejandra;
+        formatter.${system} = pkgs.nixfmt-tree;
         nixosConfigurations = {
           IdeaPad-S340 = import ./hosts/IdeaPad-S340/flake.nix args;
         };

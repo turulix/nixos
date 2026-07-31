@@ -3,7 +3,8 @@
   lib,
   config,
   ...
-}: {
+}:
+{
   home.file.".p10k.zsh".source = ./assets/p10k.zsh;
 
   home.packages = with pkgs; [

@@ -2,7 +2,8 @@
   config,
   pkgs,
   ...
-}: {
+}:
+{
   # X11 and KDE Plasma 6
   services.xserver.enable = true;
   services.displayManager.sddm.enable = true;

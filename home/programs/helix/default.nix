@@ -1,36 +1,44 @@
 {
   config,
   pkgs,
+  lib,
+  osConfig,
   ...
-}: let
-in {
+}:
+let
+in
+{
   programs.helix = {
     enable = true;
     defaultEditor = true;
 
     extraPackages = with pkgs; [
-      nil
       nixd
-      alejandra
     ];
 
     languages = {
       language-server.nixd = {
         command = "nixd";
-        config = {
-          nixpkgs.expr = "import <nixpkgs> {}";
-          options = {
-            nixos.expr = "(builtins.getFlake \"/etc/nixos\").nixosConfigurations.\"IdeaPad-S340\".options";
-            home-manager.expr = ''(builtins.getFlake ("/etc/nixos")).nixosConfigurations.IdeaPad-S340.options.home-manager.users.type.getSubOptions []'';
+        args = [ "--semantic-tokens=true" ];
+
+        config.nixd =
+          let
+            myFlake = ''(builtins.getFlake "/etc/nixos")'';
+            nixosOpts = "${myFlake}.nixosConfigurations.${osConfig.networking.hostName}.options";
+          in
+          {
+            nixpkgs.expr = "import ${myFlake}.inputs.nixpkgs { }";
+            formatting.command = [ "${lib.getExe pkgs.nixfmt}" ];
+            options = {
+              nixos.expr = nixosOpts;
+              home-manager.expr = "${nixosOpts}.home-manager.users.type.getSubOptions []";
+            };
           };
-        };
       };
       language = [
         {
           name = "nix";
           auto-format = true;
-          formatter.command = "alejandra";
-          # language-servers = ["nixd"];
         }
       ];
     };

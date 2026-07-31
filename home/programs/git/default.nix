@@ -1,7 +1,9 @@
-{config, ...}: let
+{ config, ... }:
+let
   username = config.var.git.username;
   email = config.var.git.email;
-in {
+in
+{
   programs.git = {
     enable = true;
     settings = {

@@ -8,7 +8,7 @@ nixpkgs.lib.nixosSystem {
     {
       nixpkgs.overlays = [
       ];
-      _module.args = {inherit inputs;};
+      _module.args = { inherit inputs; };
     }
 
     # Home Manager

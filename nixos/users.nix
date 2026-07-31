@@ -2,9 +2,11 @@
   config,
   pkgs,
   ...
-}: let
+}:
+let
   username = config.var.username;
-in {
+in
+{
   programs.zsh.enable = true;
   users = {
     defaultUserShell = pkgs.zsh;
