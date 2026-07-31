@@ -48,6 +48,11 @@
       theme = "onedarker";
       editor = {
         auto-format = true;
+        indent-guides = {
+          render = true;
+          character = "▏";
+          skip-levels = 1;
+        };
       };
     };
   };
