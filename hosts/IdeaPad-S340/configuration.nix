@@ -6,8 +6,6 @@
     ../../nixos/desktop.nix
     ../../nixos/users.nix
     ../../nixos/home-manager.nix
-    #    ../../users/default.nix
-    #    ../../modules/default.nix
 
     # You should let those lines as is
     ./hardware-configuration.nix
