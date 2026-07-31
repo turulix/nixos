@@ -7,6 +7,9 @@
     ../../nixos/users.nix
     ../../nixos/home-manager.nix
 
+    # System Program Configs
+    ../../nixos/programs/steam
+    
     # You should let those lines as is
     ./hardware-configuration.nix
     ./variables.nix
