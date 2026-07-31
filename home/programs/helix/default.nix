@@ -37,7 +37,7 @@
           formatter.command = "${pkgs.nixfmt}/bin/nixfmt";
           auto-format = true;
           language-servers = [
-            "nil"
+            # "nil"
             "nixd"
           ];
         }
