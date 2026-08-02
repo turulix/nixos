@@ -23,10 +23,12 @@
             nixosOpts = "${myFlake}.nixosConfigurations.${osConfig.networking.hostName}.options";
           in
           {
-            nixpkgs.expr = "import ${myFlake}.inputs.nixpkgs { }";
-            options = {
-              nixos.expr = nixosOpts;
-              home-manager.expr = "${nixosOpts}.home-manager.users.type.getSubOptions []";
+            nixd = {
+              nixpkgs.expr = "import ${myFlake}.inputs.nixpkgs { }";
+              options = {
+                nixos.expr = nixosOpts;
+                home-manager.expr = "${nixosOpts}.home-manager.users.type.getSubOptions []";
+              };
             };
           };
       };

@@ -1,18 +1,22 @@
-{ config, ... }:
+{
+  lib,
+  osConfig,
+  ...
+}:
 let
-  username = config.var.git.username;
-  email = config.var.git.email;
+  username = osConfig.var.git.username;
+  email = osConfig.var.git.email;
 in
 {
   programs.git = {
-    enable = true;
+    enable = osConfig.var.git.enable;
     settings = {
       user.name = username;
       user.email = email;
     };
-    signing = {
+    signing = lib.mkIf osConfig.var.git.enable {
       format = "ssh";
-      key = config.var.git.signing.key;
+      key = osConfig.var.git.signing.key;
       signByDefault = true;
     };
   };

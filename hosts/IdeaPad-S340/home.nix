@@ -1,4 +1,10 @@
-{ config, ... }: {
+{
+  inputs,
+  osConfig,
+  pkgs,
+  ...
+}:
+{
   imports = [
     ../../home/programs/helix
     ../../home/programs/git
@@ -7,12 +13,13 @@
 
     ../../home/programs/shell/zsh.nix
 
-    ./variables.nix
+    # System Components
+    ../../home/system
   ];
 
   home = {
-    inherit (config.var) username;
-    homeDirectory = "/home/" + config.var.username;
+    inherit (osConfig.var) username;
+    homeDirectory = "/home/" + osConfig.var.username;
 
     stateVersion = "26.05";
   };

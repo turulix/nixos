@@ -1,14 +1,12 @@
-{
-  config,
-  lib,
-  ...
-}:
+{ ... }:
 {
   config.var = {
     hostname = "IdeaPad-S340";
     username = "tim";
 
     git = {
+      enable = true;
+
       username = "Tim";
       email = "28957605+turulix@users.noreply.github.com";
       signing = {
@@ -16,15 +14,17 @@
       };
     };
 
+    desktop = {
+      dms = {
+        enable = false;
+        compositor = "niri";
+      };
+      plasma = {
+        enable = true;
+      };
+    };
+
     autoUpgrade = false;
     autoGarbageCollector = true;
-  };
-
-  # Don't Modify This
-  options = {
-    var = lib.mkOption {
-      type = lib.types.attrs;
-      default = { };
-    };
   };
 }

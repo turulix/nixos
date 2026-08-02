@@ -17,6 +17,8 @@ in
       extraGroups = [
         "networkmanager"
         "wheel"
+        "video"
+        "render"
       ];
       openssh = {
         authorizedKeys.keys = [

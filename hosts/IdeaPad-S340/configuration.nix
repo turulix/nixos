@@ -1,12 +1,14 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-{ config, ... }: {
+{ config, pkgs, ... }: {
   imports = [
+    ../../nixos/system
     ../../nixos/desktop.nix
     ../../nixos/users.nix
     ../../nixos/home-manager.nix
     ../../nixos/nix.nix
+    ../../options
 
     # System Program Configs
     ../../nixos/programs/steam
@@ -16,9 +18,15 @@
     ./variables.nix
   ];
 
-  # Bootloader.
+  # Bootloader
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.kernelParams = [
+    "amd_pstate=active"
+    "amdgpu.sg_display=0"
+  ];
+  boot.initrd.kernelModules = [ "amdgpu" ];
+  powerManagement.cpuFreqGovernor = "schedutil";
 
   networking.hostName = "IdeaPad-S340"; # Define your hostname.
   networking.networkmanager.enable = true;
@@ -29,6 +37,13 @@
   hardware.enableRedistributableFirmware = true;
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
+
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true;
+  };
+
+  services.xserver.videoDrivers = [ "amdgpu" ];
 
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
@@ -61,6 +76,11 @@
       PasswordAuthentication = false;
     };
   };
+
+  environment.pathsToLink = [
+    "/share/applications"
+    "/share/xdg-desktop-portal"
+  ];
 
   nix.settings.experimental-features = [
     "nix-command"
